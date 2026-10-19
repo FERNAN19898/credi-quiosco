@@ -1,0 +1,698 @@
+<!-- Si. Odio hacer HTMLs. Esto lo hizo Gemini Flash -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrediQuiosco | Terminal de Simulación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #111827;
+      --surface-elevated: #1a2234;
+      --border: #263349;
+      --border-focus: #3b82f6;
+      --text: #f1f5f9;
+      --text-muted: #8492a6;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --green: #10b981;
+      --red: #ef4444;
+      --oled-bg: #050811;
+      --oled-border: #131c2e;
+      --oled-text: #e2e8f0;
+      --oled-accent: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .nav-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .main-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .pos-device {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    .pos-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .device-brand {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .status-indicators {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sound-toggle {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 0.75rem;
+      gap: 4px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .sound-toggle:hover {
+      color: var(--text);
+      background: var(--surface-elevated);
+    }
+
+    .leds {
+      display: flex;
+      gap: 8px;
+    }
+
+    .led {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #1f2937;
+      transition: all 0.2s ease;
+    }
+
+    .led.green.active {
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+    }
+
+    .led.red.active {
+      background: var(--red);
+      box-shadow: 0 0 12px var(--red);
+    }
+
+    .oled-screen {
+      background: var(--oled-bg);
+      border: 1px solid var(--oled-border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--oled-text);
+      margin-bottom: 20px;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .oled-header-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--oled-accent);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+
+    .oled-body {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      white-space: pre-line;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .oled-pin-display {
+      font-size: 1.25rem;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .oled-footer-line {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 4px;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .key {
+      background: var(--surface-elevated);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.12s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .key:hover {
+      background: #232d42;
+      border-color: #3b4d6b;
+      transform: translateY(-1px);
+    }
+
+    .key:active, .key.pressed {
+      transform: translateY(1px);
+      background: var(--accent);
+      color: #0b1120;
+      border-color: var(--accent);
+    }
+
+    .key.action {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .key.action span {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .key.confirm {
+      background: #064e3b;
+      border-color: #059669;
+      color: #34d399;
+    }
+
+    .key.confirm:hover {
+      background: #047857;
+      color: #ffffff;
+    }
+
+    .key.confirm:active {
+      background: #10b981;
+      color: #000000;
+    }
+
+    .controls-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .controls-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .input-field {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: var(--border-focus);
+    }
+
+    .btn {
+      background: var(--surface-elevated);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: #232d42;
+      border-color: #3b4d6b;
+    }
+
+    .btn.primary {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    .btn.primary:hover {
+      background: #1d4ed8;
+    }
+
+    .amount-pills {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pill-btn {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 8px;
+      padding: 8px 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .pill-btn:hover {
+      color: var(--text);
+      border-color: #3b4d6b;
+    }
+
+    .pill-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Terminal de Simulación</h1>
+    <p>Simulador POS para cobros escolares con RFID y PIN</p>
+    <div class="nav-links">
+      <a href="/admin">Ir al Panel de Administración &rarr;</a>
+    </div>
+  </header>
+
+  <main class="main-layout">
+    <!-- POS DEVICE -->
+    <div class="pos-device">
+      <div class="pos-top-bar">
+        <span class="device-brand">CrediQuiosco POS</span>
+        <div class="status-indicators">
+          <button class="sound-toggle" id="soundBtn" title="Alternar audio buzzer">
+            <span id="soundIcon">&#128266;</span> Audio
+          </button>
+          <div class="leds">
+            <div class="led green" id="ledGreen" title="Transacción Aprobada"></div>
+            <div class="led red" id="ledRed" title="Transacción Rechazada"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODERN OLED SCREEN -->
+      <div class="oled-screen" id="oledScreen">
+        <div class="oled-header-line">
+          <span>SISTEMA PREPAGO</span>
+          <span id="screenStatus">ONLINE</span>
+        </div>
+        <div class="oled-body" id="screenBody">
+          <div>Acerque su tarjeta</div>
+          <div style="color: #38bdf8; font-weight: 600; margin-top: 4px;" id="screenAmount">Monto: S/. 2.50</div>
+        </div>
+        <div class="oled-footer-line">
+          <span id="screenFootLeft">WiFi: Conectado</span>
+          <span id="screenFootRight">Listo</span>
+        </div>
+      </div>
+
+      <!-- KEYPAD 4x4 -->
+      <div class="keypad" id="keypad">
+        <button class="key" data-key="1">1</button>
+        <button class="key" data-key="2">2</button>
+        <button class="key" data-key="3">3</button>
+        <button class="key action" data-key="A" title="Aumentar S/. 0.10">A <span>+0.10</span></button>
+
+        <button class="key" data-key="4">4</button>
+        <button class="key" data-key="5">5</button>
+        <button class="key" data-key="6">6</button>
+        <button class="key action" data-key="B" title="Aumentar S/. 0.50">B <span>+0.50</span></button>
+
+        <button class="key" data-key="7">7</button>
+        <button class="key" data-key="8">8</button>
+        <button class="key" data-key="9">9</button>
+        <button class="key action" data-key="C" title="Disminuir S/. 0.10">C <span>-0.10</span></button>
+
+        <button class="key action" data-key="*" title="Borrar / Resetear">* <span>Reset</span></button>
+        <button class="key" data-key="0">0</button>
+        <button class="key confirm" data-key="#" title="Confirmar PIN">#</button>
+        <button class="key action" data-key="D" title="Disminuir S/. 0.50">D <span>-0.50</span></button>
+      </div>
+    </div>
+
+    <!-- CONTROLS CARD -->
+    <div class="controls-card">
+      <div class="controls-title">Lectura Manual de Tarjeta (RFID UID)</div>
+      <div class="input-group">
+        <input type="text" id="manualUidInput" class="input-field" placeholder="Ingrese UID (ej: AA7AFC35)" maxlength="20" spellcheck="false" autocomplete="off">
+        <button class="btn primary" id="tapCardBtn">Pasar Tarjeta</button>
+      </div>
+
+      <div class="controls-title" style="margin-top: 14px;">Monto de Venta</div>
+      <div class="amount-pills">
+        <button class="pill-btn" data-amt="1.00">S/. 1.00</button>
+        <button class="pill-btn active" data-amt="2.50">S/. 2.50</button>
+        <button class="pill-btn" data-amt="5.00">S/. 5.00</button>
+        <button class="pill-btn" data-amt="10.00">S/. 10.00</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let currentMonto = 2.50;
+    let currentUid = '';
+    let currentPin = '';
+    let isProcessing = false;
+    let audioEnabled = true;
+    let audioCtx = null;
+    let resetTimer = null;
+
+    const ledGreen = document.getElementById('ledGreen');
+    const ledRed = document.getElementById('ledRed');
+    const screenBody = document.getElementById('screenBody');
+    const screenAmount = document.getElementById('screenAmount');
+    const screenStatus = document.getElementById('screenStatus');
+    const screenFootRight = document.getElementById('screenFootRight');
+    const manualUidInput = document.getElementById('manualUidInput');
+    const tapCardBtn = document.getElementById('tapCardBtn');
+    const soundBtn = document.getElementById('soundBtn');
+    const soundIcon = document.getElementById('soundIcon');
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playBeep(freq, durationMs) {
+      if (!audioEnabled) return;
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + durationMs / 1000);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + durationMs / 1000);
+      } catch (e) {}
+    }
+
+    function beepSequence(count, durationMs, pauseMs, freq = 2200) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => playBeep(freq, durationMs), i * (durationMs + pauseMs));
+      }
+    }
+
+    soundBtn.addEventListener('click', () => {
+      audioEnabled = !audioEnabled;
+      soundIcon.textContent = audioEnabled ? '\u{1F50A}' : '\u{1F507}';
+      soundBtn.style.opacity = audioEnabled ? '1' : '0.5';
+    });
+
+    function resetScreen() {
+      clearTimeout(resetTimer);
+      currentUid = '';
+      currentPin = '';
+      isProcessing = false;
+      ledGreen.classList.remove('active');
+      ledRed.classList.remove('active');
+      screenStatus.textContent = 'ONLINE';
+      screenFootRight.textContent = 'Listo';
+
+      screenBody.innerHTML = `
+        <div>Acerque su tarjeta</div>
+        <div style="color: #38bdf8; font-weight: 600; margin-top: 4px;" id="screenAmount">Monto: S/. ${currentMonto.toFixed(2)}</div>
+      `;
+    }
+
+    function requestPinScreen() {
+      clearTimeout(resetTimer);
+      currentPin = '';
+      screenStatus.textContent = 'AUTENTICANDO';
+      screenFootRight.textContent = 'Pin requerido';
+
+      renderPinScreen();
+      playBeep(2200, 70);
+    }
+
+    function renderPinScreen() {
+      const masked = currentPin.split('').map(() => '*').join('');
+      const dots = masked.padEnd(4, '_');
+      screenBody.innerHTML = `
+        <div style="color: #8492a6; font-size: 0.75rem;">UID: ${currentUid}</div>
+        <div style="font-weight: 600; margin-top: 2px;">Ingrese su PIN de 4 dígitos:</div>
+        <div class="oled-pin-display">${dots}</div>
+      `;
+    }
+
+    async function sendTransaction() {
+      if (isProcessing) return;
+      isProcessing = true;
+
+      screenBody.innerHTML = `
+        <div style="font-weight: 600;">Procesando cobro...</div>
+        <div style="color: #8492a6; font-size: 0.75rem; margin-top: 4px;">S/. ${currentMonto.toFixed(2)}</div>
+      `;
+      screenFootRight.textContent = 'Enviando';
+
+      try {
+        const res = await fetch('/api/transaccion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            uid: currentUid,
+            pin: currentPin,
+            monto: currentMonto
+          })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          ledGreen.classList.add('active');
+          beepSequence(1, 400, 0, 1800);
+          screenBody.innerHTML = `
+            <div style="color: #10b981; font-weight: 700;">¡PAGO APROBADO!</div>
+            <div style="margin-top: 4px; font-size: 0.8rem;">Monto: S/. ${currentMonto.toFixed(2)}</div>
+            <div style="color: #38bdf8; font-size: 0.8rem;">Saldo Rest: S/. ${Number(data.saldo_restante || 0).toFixed(2)}</div>
+          `;
+          screenFootRight.textContent = 'Aprobado';
+        } else {
+          ledRed.classList.add('active');
+          beepSequence(3, 100, 80, 800);
+          const errMsg = data.message || data.status || 'Error en cobro';
+          screenBody.innerHTML = `
+            <div style="color: #ef4444; font-weight: 700;">PAGO RECHAZADO</div>
+            <div style="font-size: 0.75rem; margin-top: 4px; color: #fca5a5;">${errMsg}</div>
+          `;
+          screenFootRight.textContent = 'Rechazado';
+        }
+      } catch (err) {
+        ledRed.classList.add('active');
+        beepSequence(2, 150, 100, 600);
+        screenBody.innerHTML = `
+          <div style="color: #ef4444; font-weight: 700;">ERROR DE RED</div>
+          <div style="font-size: 0.75rem; margin-top: 4px;">No se pudo conectar a la API</div>
+        `;
+        screenFootRight.textContent = 'Fallo';
+      } finally {
+        resetTimer = setTimeout(resetScreen, 4500);
+      }
+    }
+
+    function handleKey(key) {
+      playBeep(2400, 40);
+
+      if (key === '*') {
+        resetScreen();
+        return;
+      }
+
+      if (!currentUid) {
+        if (key === 'A') currentMonto += 0.10;
+        else if (key === 'B') currentMonto += 0.50;
+        else if (key === 'C') currentMonto = Math.max(0.10, currentMonto - 0.10);
+        else if (key === 'D') currentMonto = Math.max(0.10, currentMonto - 0.50);
+
+        const screenAmtEl = document.getElementById('screenAmount');
+        if (screenAmtEl) {
+          screenAmtEl.textContent = `Monto: S/. ${currentMonto.toFixed(2)}`;
+        }
+        return;
+      }
+
+      if (isProcessing) return;
+
+      if (key >= '0' && key <= '9') {
+        if (currentPin.length < 4) {
+          currentPin += key;
+          renderPinScreen();
+        }
+      } else if (key === '#') {
+        if (currentPin.length === 4) {
+          sendTransaction();
+        } else {
+          playBeep(600, 120);
+        }
+      }
+    }
+
+    document.querySelectorAll('.key').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handleKey(btn.getAttribute('data-key'));
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      const k = e.key.toUpperCase();
+      if ((k >= '0' && k <= '9') || ['A', 'B', 'C', 'D', '*', '#'].includes(k)) {
+        handleKey(k);
+      } else if (e.key === 'Enter') {
+        handleKey('#');
+      } else if (e.key === 'Backspace' || e.key === 'Escape') {
+        handleKey('*');
+      }
+    });
+
+    tapCardBtn.addEventListener('click', () => {
+      const val = manualUidInput.value.trim().toUpperCase();
+      if (!val) {
+        manualUidInput.focus();
+        return;
+      }
+      currentUid = val;
+      requestPinScreen();
+    });
+
+    manualUidInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        tapCardBtn.click();
+      }
+    });
+
+    document.querySelectorAll('.pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMonto = parseFloat(btn.getAttribute('data-amt'));
+        if (!currentUid) {
+          resetScreen();
+        }
+      });
+    });
+
+    resetScreen();
+  </script>
+</body>
+</html>
