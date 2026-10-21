@@ -3,8 +3,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/FERNAN19898/CrediQuiosco">
-<img src="media/logo.svg" alt="CrediQuiosco Logo" width="80%" height="" style="background-color: white; border-radius: 8px; padding: 10px;" />
+  <a href="https://github.com/FERNAN19898/Credi Quiosco">
+<img src="media/logo.svg" alt="Credi Quiosco Logo" width="80%" height="" style="background-color: white; border-radius: 8px; padding: 10px;" />
 
 
   <h1 align="center">Credi Quiosco</h1>
@@ -20,7 +20,7 @@
       <a href="#-acerca-del-proyecto">Acerca del Proyecto</a>
       <ul>
         <li><a href="#contexto-y-problemática">Contexto y Problemática</a></li>
-        <li><a href="#la-solución-crediquiosco">La Solución: CrediQuiosco</a></li>
+        <li><a href="#la-solución-crediquiosco">La Solución: Credi Quiosco</a></li>
         <li><a href="#tecnologías-utilizadas">Tecnologías Utilizadas</a></li>
       </ul>
     </li>
@@ -78,9 +78,9 @@ La problemática se centra en el contexto del quiosco / cafetin. Debido al poco 
 
 Ademas el uso de efectivo trae problemas como la perdida de dinero, robos, retrasos por falta de cambio y problemas de higiene en la manipulación de alimentos.
 
-### La Solución: CrediQuiosco
+### La Solución: Credi Quiosco
 
-**CrediQuiosco** fue creado como una solucion para estos dilemas. Es un sistema que permite el pago mediante tarjetas personalizadas por la institucion educativa o llaveros NFC físicos y un PIN confidencial de 4 dígitos en un teclado físico.
+**Credi Quiosco** fue creado como una solucion para estos dilemas. Es un sistema que permite el pago mediante tarjetas personalizadas por la institucion educativa o llaveros NFC físicos y un PIN confidencial de 4 dígitos en un teclado físico.
 
 El saldo monetario **nunca reside en la tarjeta física** (evitando clonaciones o falsificaciones); reside en una base de datos protegida. Esto hace que el sistema sea mucho más seguro que los métodos tradicionales. Ademas las transacciones son rapidas y eficientes.
 
@@ -206,8 +206,8 @@ Sigue estos sencillos pasos para levantar el servidor localmente y flashear el f
 
 1. Clona el repositorio:
    ```sh
-   git clone https://github.com/FERNAN19898/CrediQuiosco.git
-   cd CrediQuiosco
+   git clone https://github.com/FERNAN19898/Credi Quiosco.git
+   cd Credi Quiosco
    ```
 
 2. Instala las dependencias del proyecto:
@@ -373,7 +373,7 @@ Distribuido bajo la Licencia **GNU Affero General Public License v3.0 (GNU AGPLv
 **Fernando Espejo**
 * Email: [fernando.espejo.contact@gmail.com](mailto:fernando.espejo.contact@gmail.com)
 * GitHub: [@FERNAN19898](https://github.com/FERNAN19898)
-* Enlace del Proyecto: [https://github.com/FERNAN19898/CrediQuiosco](https://github.com/FERNAN19898/CrediQuiosco)
+* Enlace del Proyecto: [https://github.com/FERNAN19898/Credi Quiosco](https://github.com/FERNAN19898/Credi Quiosco)
 
 <p align="right">(<a href="#readme-top">Volver arriba</a>)</p>
 
@@ -393,16 +393,16 @@ Distribuido bajo la Licencia **GNU Affero General Public License v3.0 (GNU AGPLv
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- Reference style links -->
-[contributors-shield]: https://img.shields.io/github/contributors/FERNAN19898/CrediQuiosco.svg?style=for-the-badge
-[contributors-url]: https://github.com/FERNAN19898/CrediQuiosco/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/FERNAN19898/CrediQuiosco.svg?style=for-the-badge
-[forks-url]: https://github.com/FERNAN19898/CrediQuiosco/network/members
-[stars-shield]: https://img.shields.io/github/stars/FERNAN19898/CrediQuiosco.svg?style=for-the-badge
-[stars-url]: https://github.com/FERNAN19898/CrediQuiosco/stargazers
-[issues-shield]: https://img.shields.io/github/issues/FERNAN19898/CrediQuiosco.svg?style=for-the-badge
-[issues-url]: https://github.com/FERNAN19898/CrediQuiosco/issues
+[contributors-shield]: https://img.shields.io/github/contributors/FERNAN19898/Credi Quiosco.svg?style=for-the-badge
+[contributors-url]: https://github.com/FERNAN19898/Credi Quiosco/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/FERNAN19898/Credi Quiosco.svg?style=for-the-badge
+[forks-url]: https://github.com/FERNAN19898/Credi Quiosco/network/members
+[stars-shield]: https://img.shields.io/github/stars/FERNAN19898/Credi Quiosco.svg?style=for-the-badge
+[stars-url]: https://github.com/FERNAN19898/Credi Quiosco/stargazers
+[issues-shield]: https://img.shields.io/github/issues/FERNAN19898/Credi Quiosco.svg?style=for-the-badge
+[issues-url]: https://github.com/FERNAN19898/Credi Quiosco/issues
 [license-shield]: https://img.shields.io/badge/License-AGPL_v3-blue.svg?style=for-the-badge
-[license-url]: https://github.com/FERNAN19898/CrediQuiosco/blob/main/LICENSE
+[license-url]: https://github.com/FERNAN19898/Credi Quiosco/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/
 

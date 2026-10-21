@@ -12,7 +12,7 @@ app.use(express.static(path.join(process.cwd(), 'public')));
 
 app.get('/api/status', (_req: Request, res: Response) => {
   res.json({
-    name: 'CrediQuiosco API',
+    name: 'Credi Quiosco API',
     status: 'ONLINE',
     version: '1.0.0'
   });

@@ -4,7 +4,7 @@ import { config } from './config/env.js';
 /**
  * ============================================================================
  *   [ OPENMIND INNOVATIONS - CREDI QUIOSCO ]
- *   Project: CrediQuiosco API
+ *   Project: Credi Quiosco API
  *   Author: Fernando Espejo
  *   License: AGPL-3.0
  * ============================================================================
@@ -14,7 +14,7 @@ import { config } from './config/env.js';
  */
 
 const server = app.listen(config.PORT, '0.0.0.0', () => {
-  console.log(`CrediQuiosco API corriendo en puerto ${config.PORT} (0.0.0.0)`);
+  console.log(`Credi Quiosco API corriendo en puerto ${config.PORT} (0.0.0.0)`);
 });
 
 process.on('SIGINT', () => {
