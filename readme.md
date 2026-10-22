@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/FERNAN19898/Credi Quiosco">
+  <a href="https://github.com/FERNAN19898/credi-quiosco">
 <img src="media/logo.svg" alt="Credi Quiosco Logo" width="80%" height="" style="background-color: white; border-radius: 8px; padding: 10px;" />
 
 
@@ -373,7 +373,7 @@ Distribuido bajo la Licencia **GNU Affero General Public License v3.0 (GNU AGPLv
 **Fernando Espejo**
 * Email: [fernando.espejo.contact@gmail.com](mailto:fernando.espejo.contact@gmail.com)
 * GitHub: [@FERNAN19898](https://github.com/FERNAN19898)
-* Enlace del Proyecto: [https://github.com/FERNAN19898/Credi Quiosco](https://github.com/FERNAN19898/Credi Quiosco)
+* Enlace del Proyecto: [https://github.com/FERNAN19898/Credi Quiosco](https://github.com/FERNAN19898/credi-quiosco)
 
 <p align="right">(<a href="#readme-top">Volver arriba</a>)</p>
 
@@ -393,16 +393,16 @@ Distribuido bajo la Licencia **GNU Affero General Public License v3.0 (GNU AGPLv
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- Reference style links -->
-[contributors-shield]: https://img.shields.io/github/contributors/FERNAN19898/Credi Quiosco.svg?style=for-the-badge
-[contributors-url]: https://github.com/FERNAN19898/Credi Quiosco/graphs/contributors
+[contributors-shield]: https://img.shields.io/github/contributors/FERNAN19898/credi-quiosco.svg?style=for-the-badge
+[contributors-url]: https://github.com/FERNAN19898/credi-quiosco/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/FERNAN19898/Credi Quiosco.svg?style=for-the-badge
-[forks-url]: https://github.com/FERNAN19898/Credi Quiosco/network/members
-[stars-shield]: https://img.shields.io/github/stars/FERNAN19898/Credi Quiosco.svg?style=for-the-badge
-[stars-url]: https://github.com/FERNAN19898/Credi Quiosco/stargazers
-[issues-shield]: https://img.shields.io/github/issues/FERNAN19898/Credi Quiosco.svg?style=for-the-badge
-[issues-url]: https://github.com/FERNAN19898/Credi Quiosco/issues
+[forks-url]: https://github.com/FERNAN19898/credi-quiosco/network/members
+[stars-shield]: https://img.shields.io/github/stars/FERNAN19898/credi-quiosco.svg?style=for-the-badge
+[stars-url]: https://github.com/FERNAN19898/credi-quiosco/stargazers
+[issues-shield]: https://img.shields.io/github/issues/FERNAN19898/credi-quiosco.svg?style=for-the-badge
+[issues-url]: https://github.com/FERNAN19898/credi-quiosco/issues
 [license-shield]: https://img.shields.io/badge/License-AGPL_v3-blue.svg?style=for-the-badge
-[license-url]: https://github.com/FERNAN19898/Credi Quiosco/blob/main/LICENSE
+[license-url]: https://github.com/FERNAN19898/credi-quiosco/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/
 
