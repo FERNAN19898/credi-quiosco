@@ -46,6 +46,12 @@ export const cardRepository = {
     stmt.run(cleanUid);
   },
 
+  unlockCard(uid: string): void {
+    const cleanUid = uid.trim().toUpperCase();
+    const stmt = db.prepare('UPDATE tarjeta SET bloqueado = 0, intentos_fallidos = 0 WHERE UPPER(uid) = ?');
+    stmt.run(cleanUid);
+  },
+
   resetAttempts(uid: string): void {
     const cleanUid = uid.trim().toUpperCase();
     const stmt = db.prepare('UPDATE tarjeta SET intentos_fallidos = 0 WHERE UPPER(uid) = ?');
@@ -57,13 +63,20 @@ export const cardRepository = {
     stmt.run();
   },
 
+  deleteCard(uid: string): boolean {
+    const cleanUid = uid.trim().toUpperCase();
+    const res = db.prepare('DELETE FROM tarjeta WHERE UPPER(uid) = ?').run(cleanUid);
+    return Number(res.changes) > 0;
+  },
+
   listAll(): TarjetaResumen[] {
     const stmt = db.prepare(`
-      SELECT t.id, t.uid, t.cuenta_id, t.intentos_fallidos, t.bloqueado, t.activa,
-             a.nombre_completo, c.saldo
+      SELECT t.id, t.uid, t.cuenta_id, t.intentos_fallidos, t.bloqueado, t.activa, t.fecha_registro,
+             a.nombre_completo, a.dni, c.saldo
       FROM tarjeta t
       JOIN cuenta c ON c.id = t.cuenta_id
       JOIN alumno a ON a.dni = c.dni_alumno
+      ORDER BY t.id DESC
     `);
     return stmt.all() as unknown as TarjetaResumen[];
   }

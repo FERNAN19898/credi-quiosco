@@ -283,9 +283,9 @@ Permite al personal del colegio o al quiosquero realizar operaciones sin abrir u
 
 ### 3. Simulador Web Interactivo y Panel Administrativo
 
-El backend incluye interfaces web minimalistas accesibles desde cualquier navegador:
+El backend incluye interfaces web completas y accesibles desde cualquier navegador:
 * **Terminal POS (`/simulacion` o `/simulador`):** Réplica funcional del hardware con pantalla OLED, teclado numérico 4x4 y entrada manual de UID para simular cobros con RFID y PIN.
-* **Panel de Administración (`/admin` o `/panel`):** Panel para consultar saldos por DNI, realizar recargas de saldo, asociar nuevas tarjetas físicas a alumnos y desbloquear cuentas.
+* **Panel de Administración (`/admin` o `/panel`):** Panel completo para la gestión integral del quiosco: registro y edición de alumnos, vinculación y bloqueo/desbloqueo de tarjetas RFID/NFC, módulo de caja y recargas rápidas, historial de transacciones con exportación a CSV, y métricas KPI en tiempo real.
 
 ### Endpoints de la API REST
 
@@ -293,11 +293,19 @@ El backend incluye interfaces web minimalistas accesibles desde cualquier navega
 | -------------------------- | -------------------------- | ------------------------------------------ | -------------------------- |
 | `GET ` | ` /api/status` | Comprueba disponibilidad del servicio      | Ninguno                    |
 | `POST ` | ` /api/transaccion ` | Procesa un cobro con UID y PIN             | ` { "uid": "UID_DE_LA_TARJETA", "pin": "PIN_DEL_ALUMNO", "monto": MONTO_A_COBRAR }` |
+| `GET ` | ` /api/admin/status` | Listado general de cuentas, tarjetas, métricas y transacciones | Ninguno                    |
+| `GET ` | ` /api/admin/alumnos` | Listado detallado de todos los alumnos con sus tarjetas | Ninguno                    |
+| `POST ` | ` /api/admin/registrar-alumno` | Registra un nuevo alumno en el sistema     | ` { "dni": "72345678", "nombre_completo": "Nombre", "pin": "1234", "saldo_inicial": 10.0, "uid": "AA7AFC35" }` |
 | `GET ` | ` /api/admin/alumno/:dni` | Consulta alumno y saldo por DNI            | Ninguno (parámetro en URL) |
+| `PUT ` | ` /api/admin/alumno/:dni` | Actualiza nombre o PIN de un alumno        | ` { "nombre_completo": "Nuevo Nombre", "pin": "4321" }` |
+| `DELETE ` | ` /api/admin/alumno/:dni` | Elimina un alumno y sus cuentas/tarjetas   | Ninguno (parámetro en URL) |
 | `POST ` | ` /api/admin/registrar-tarjeta ` | Asocia una tarjeta física a un alumno      | ` { "dni": "DNI_DEL_ALUMNO", "uid": "UID_DE_LA_TARJETA" }` |
+| `POST ` | ` /api/admin/desbloquear-tarjeta` | Desbloquea una tarjeta física específica   | ` { "uid": "UID_DE_LA_TARJETA" }` |
+| `POST ` | ` /api/admin/bloquear-tarjeta` | Bloquea preventivamente una tarjeta física | ` { "uid": "UID_DE_LA_TARJETA" }` |
+| `DELETE ` | ` /api/admin/tarjeta/:uid` | Desvincula y elimina una tarjeta física    | Ninguno (parámetro en URL) |
 | `POST ` | ` /api/admin/recargar ` | Abona saldo a una cuenta                   | ` { "dni": "DNI_DEL_ALUMNO", "monto": MONTO_A_ABONAR }` |
-| `GET ` | ` /api/admin/desbloquear-todo` | Desbloquea todas las tarjetas              | Ninguno                    |
-| `GET ` | ` /api/admin/status` | Listado general de cuentas y transacciones | Ninguno                    |
+| `GET ` / `POST` | ` /api/admin/desbloquear-todo` | Desbloquea todas las tarjetas              | Ninguno                    |
+| `POST ` | ` /api/admin/seed-demo` | Carga alumnos y tarjetas demo de prueba    | Ninguno                    |
 
 <p align="right">(<a href="#readme-top">Volver arriba</a>)</p>
 

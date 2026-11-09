@@ -30,6 +30,7 @@ export interface CuentaDetallada extends Cuenta {
 export interface Tarjeta {
   id: number;
   uid: string;
+  uid_hardware?: string | null;
   cuenta_id: number;
   intentos_fallidos: number;
   bloqueado: number;
@@ -53,7 +54,25 @@ export interface TarjetaResumen {
   bloqueado: number;
   activa: number;
   nombre_completo: string;
+  dni?: string;
   saldo: number;
+  fecha_registro?: string;
+}
+
+export interface TarjetaItem {
+  uid: string;
+  bloqueado: number;
+  activa: number;
+  intentos_fallidos: number;
+}
+
+export interface AlumnoConTarjetas {
+  dni: string;
+  nombre_completo: string;
+  saldo: number;
+  cuenta_id: number;
+  fecha_registro?: string;
+  tarjetas: TarjetaItem[];
 }
 
 export interface Transaccion {
@@ -63,8 +82,10 @@ export interface Transaccion {
   monto: number;
   estado: string;
   saldo_restante: number | null;
+  fecha_registro?: string;
   created_at?: string;
   alumno_nombre?: string;
+  alumno_dni?: string;
 }
 
 export interface TransactionRequest {
@@ -100,8 +121,30 @@ export interface RegisterCardRequest {
   nombre_completo?: string;
 }
 
-// AQQUI ME HABLAS ESPAÑOL 🗣️🗣️🗣️
+export interface RegisterStudentRequest {
+  dni: string | number;
+  nombre_completo: string;
+  pin?: string;
+  saldo_inicial?: number;
+  uid?: string;
+}
 
+export interface UpdateStudentRequest {
+  nombre_completo?: string;
+  pin?: string;
+}
+
+export interface SystemStats {
+  totalAlumnos: number;
+  totalTarjetas: number;
+  totalTarjetasBloqueadas: number;
+  saldoTotal: number;
+  ventasHoy: number;
+  recargasHoy: number;
+  transaccionesHoy: number;
+}
+
+// Compatibilidad
 export type Account = CuentaDetallada;
 export type Card = Tarjeta;
 export type CardWithAccount = TarjetaConCuenta;

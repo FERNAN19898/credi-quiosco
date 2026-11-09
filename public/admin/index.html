@@ -1,31 +1,39 @@
-<!-- Si. Odio hacer HTMLs. Esto lo hizo Gemini Flash -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Credi Quiosco | Panel de Administración</title>
+  <title>Credi Quiosco | Panel de Administración Completo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #090d16;
       --surface: #111827;
       --surface-elevated: #1a2234;
+      --surface-hover: #222d44;
       --border: #263349;
-      --border-focus: #3b82f6;
+      --border-focus: #38bdf8;
       --text: #f1f5f9;
-      --text-muted: #8492a6;
+      --text-muted: #8fa0b5;
       --accent: #38bdf8;
       --accent-hover: #0ea5e9;
+      --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
       --green: #10b981;
-      --green-bg: rgba(16, 185, 129, 0.12);
+      --green-bg: rgba(16, 185, 129, 0.14);
+      --green-border: rgba(16, 185, 129, 0.35);
       --red: #ef4444;
-      --red-bg: rgba(239, 68, 68, 0.12);
+      --red-bg: rgba(239, 68, 68, 0.14);
+      --red-border: rgba(239, 68, 68, 0.35);
       --amber: #f59e0b;
-      --amber-bg: rgba(245, 158, 11, 0.12);
+      --amber-bg: rgba(245, 158, 11, 0.14);
+      --amber-border: rgba(245, 158, 11, 0.35);
+      --blue: #3b82f6;
+      --blue-bg: rgba(59, 130, 246, 0.14);
+      --blue-border: rgba(59, 130, 246, 0.35);
+      --radius: 12px;
+      --radius-lg: 16px;
     }
 
     * {
@@ -41,99 +49,460 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding: 24px 16px;
+      padding: 20px 16px;
+      line-height: 1.5;
     }
 
     .container {
-      max-width: 980px;
+      max-width: 1200px;
       margin: 0 auto;
       width: 100%;
     }
 
+    /* HEADER */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 28px;
-      padding-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
       border-bottom: 1px solid var(--border);
     }
 
-    .header-title h1 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .header-title p {
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+      flex-shrink: 0;
+    }
+
+    .brand-logo svg {
+      width: 26px;
+      height: 26px;
+      fill: #ffffff;
+    }
+
+    .brand-text h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-text p {
       color: var(--text-muted);
-      font-size: 0.825rem;
-      margin-top: 2px;
+      font-size: 0.8rem;
+    }
+
+    .online-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .online-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.9); }
     }
 
     .header-actions {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
-    .nav-btn {
-      color: var(--accent);
-      text-decoration: none;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 10px;
       font-size: 0.825rem;
       font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 8px;
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
       transition: all 0.2s;
+      border: 1px solid var(--border);
+      background: var(--surface-elevated);
+      color: var(--text);
     }
 
-    .nav-btn:hover {
-      background: #232d42;
+    .btn:hover {
+      background: var(--surface-hover);
       border-color: #3b4d6b;
     }
 
-    .grid-2 {
+    .btn.primary {
+      background: var(--accent-gradient);
+      border: none;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn.primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .btn.success {
+      background: #059669;
+      border-color: #10b981;
+      color: #ffffff;
+    }
+
+    .btn.success:hover {
+      background: #047857;
+    }
+
+    .btn.warning {
+      background: var(--amber-bg);
+      border-color: var(--amber-border);
+      color: var(--amber);
+    }
+
+    .btn.warning:hover {
+      background: rgba(245, 158, 11, 0.25);
+    }
+
+    .btn.danger {
+      background: var(--red-bg);
+      border-color: var(--red-border);
+      color: var(--red);
+    }
+
+    .btn.danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    .btn.sm {
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      border-radius: 8px;
+    }
+
+    /* KPI METRICS */
+    .kpi-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      margin-bottom: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
     }
 
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .card {
+    .kpi-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
-    .card-title {
-      font-size: 0.95rem;
+    .kpi-card:hover {
+      border-color: #3b4d6b;
+      transform: translateY(-2px);
+    }
+
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .kpi-label {
+      color: var(--text-muted);
+      font-size: 0.775rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .kpi-icon {
+      font-size: 1.15rem;
+      opacity: 0.85;
+    }
+
+    .kpi-value {
+      font-size: 1.7rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .kpi-sub {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* NAVIGATION TABS */
+    .tabs-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      border-radius: 10px 10px 0 0;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
+      transition: all 0.2s;
+      position: relative;
+      white-space: nowrap;
     }
 
+    .tab-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      background: var(--surface);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .tab-badge {
+      background: var(--surface-elevated);
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tab-btn.active .tab-badge {
+      background: rgba(56, 189, 248, 0.2);
+      color: var(--accent);
+    }
+
+    /* TAB CONTENT PANELS */
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TOOLBARS & SEARCH */
+    .panel-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0 12px;
+      width: 100%;
+      max-width: 380px;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--border-focus);
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      padding: 10px 8px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: inherit;
+      width: 100%;
+      outline: none;
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* TABLES */
+    .table-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: rgba(26, 34, 52, 0.5);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.725rem;
+      letter-spacing: 0.05em;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(38, 51, 73, 0.6);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    /* BADGES */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.725rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .chip.green {
+      background: var(--green-bg);
+      color: var(--green);
+      border-color: var(--green-border);
+    }
+
+    .chip.red {
+      background: var(--red-bg);
+      color: var(--red);
+      border-color: var(--red-border);
+    }
+
+    .chip.blue {
+      background: var(--blue-bg);
+      color: var(--accent);
+      border-color: var(--blue-border);
+    }
+
+    .chip.amber {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border-color: var(--amber-border);
+    }
+
+    .chip.gray {
+      background: var(--surface-elevated);
+      color: var(--text-muted);
+      border-color: var(--border);
+    }
+
+    .chip.clickable {
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .chip.clickable:hover {
+      opacity: 0.8;
+    }
+
+    /* FORMS & INPUTS */
     .form-group {
       display: flex;
       flex-direction: column;
       gap: 6px;
+      margin-bottom: 14px;
     }
 
     label {
       font-size: 0.775rem;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -149,351 +518,1099 @@
       font-family: inherit;
       outline: none;
       transition: border-color 0.2s;
+      width: 100%;
     }
 
     .input-field:focus {
       border-color: var(--border-focus);
     }
 
-    .btn {
-      background: var(--surface-elevated);
-      color: var(--text);
+    .input-field::placeholder {
+      color: #4b586e;
+    }
+
+    .input-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* CASHIER RECHARGE PANEL */
+    .cashier-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 860px) {
+      .cashier-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    .card {
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .btn:hover {
-      background: #232d42;
-      border-color: #3b4d6b;
-    }
-
-    .btn.primary {
-      background: #2563eb;
-      border-color: #3b82f6;
-      color: #ffffff;
-    }
-
-    .btn.primary:hover {
-      background: #1d4ed8;
-    }
-
-    .btn.warning {
-      background: var(--amber-bg);
-      border-color: var(--amber);
-      color: var(--amber);
-    }
-
-    .btn.warning:hover {
-      background: rgba(245, 158, 11, 0.2);
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .amount-shortcuts {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
-      margin-top: -4px;
+      margin-top: 4px;
     }
 
-    .amount-shortcut {
-      flex: 1;
+    .amount-btn {
       background: var(--bg);
       border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 10px 0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .amount-btn:hover, .amount-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .recharge-preview {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .preview-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .preview-row.total {
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .val-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    /* MODALS */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 999;
+      animation: fadeIn 0.15s ease-out;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      max-width: 480px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      animation: modalSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlide {
+      from { transform: translateY(12px) scale(0.98); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
       color: var(--text-muted);
-      border-radius: 6px;
-      padding: 6px 0;
-      font-size: 0.75rem;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* EMPTY STATES */
+    .empty-state {
+      padding: 48px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      font-size: 2.5rem;
+      opacity: 0.6;
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 10000;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: auto;
+      animation: toastIn 0.25s ease-out;
+      max-width: 380px;
+    }
+
+    @keyframes toastIn {
+      from { transform: translateX(40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .toast.success { border-color: var(--green); }
+    .toast.error { border-color: var(--red); }
+    .toast.info { border-color: var(--accent); }
+
+    /* FILTERS */
+    .filter-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.775rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s;
     }
 
-    .amount-shortcut:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .result-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      animation: fadeIn 0.2s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .result-value-big {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--green);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .table-container {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      text-align: left;
-    }
-
-    th {
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.725rem;
-      letter-spacing: 0.05em;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    td {
-      padding: 12px;
-      border-bottom: 1px solid rgba(38, 51, 73, 0.5);
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .badge.green {
-      background: var(--green-bg);
-      color: var(--green);
-    }
-
-    .badge.red {
-      background: var(--red-bg);
-      color: var(--red);
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
+    .filter-chip:hover {
+      border-color: #3b4d6b;
       color: var(--text);
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      display: none;
-      z-index: 1000;
+    }
+
+    .filter-chip.active {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      header, .tabs-bar, .panel-toolbar, .header-actions, .kpi-grid, .modal-backdrop { display: none !important; }
+      .tab-panel { display: none !important; }
+      #panel-movimientos { display: block !important; }
+      .table-card { border: none; }
+      th, td { border-bottom: 1px solid #ccc; color: #000; }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
+    <!-- CABECERA -->
     <header>
-      <div class="header-title">
-        <h1>Panel de Administración</h1>
-        <p>Gestión de cuentas escolares, enrolamiento y recargas de quiosco</p>
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>
+            Credi Quiosco
+            <span class="online-badge">
+              <span class="online-dot"></span> Online
+            </span>
+          </h1>
+          <p>Sistema Centralizado de Pagos y Control Escolar</p>
+        </div>
       </div>
+
       <div class="header-actions">
-        <a href="/simulacion" class="nav-btn">&larr; Simulador POS</a>
+        <button class="btn" id="btnSeedDemo" title="Carga 4 alumnos de prueba si la base de datos está vacía">
+          <span>⚡</span> Cargar Demo
+        </button>
+        <button class="btn" id="btnRefresh">
+          <span id="refreshIcon">🔄</span> Actualizar
+        </button>
+        <a href="/simulacion" class="btn primary">
+          <span>💳</span> Terminal POS &rarr;
+        </a>
       </div>
     </header>
 
-    <div class="grid-2">
-      <!-- CONSULTAR ALUMNO -->
-      <div class="card">
-        <div class="card-title">&#128269; Consultar Alumno y Saldo</div>
-        <div class="form-group">
-          <label>DNI del Alumno</label>
-          <input type="text" id="searchDni" class="input-field" placeholder="Ingrese 8 dígitos de DNI" maxlength="8">
+    <!-- METRICAS KPI -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Alumnos</span>
+          <span class="kpi-icon">👥</span>
         </div>
-        <button class="btn primary" id="searchBtn">Consultar Alumno</button>
-
-        <div class="result-box" id="searchResult">
-          <div style="font-size: 0.8rem; color: var(--text-muted);" id="resAlumnoName">Alumno</div>
-          <div style="font-size: 0.8rem; color: var(--text-muted);" id="resDni">DNI: -</div>
-          <div style="margin-top: 4px;">
-            <span style="font-size: 0.75rem; color: var(--text-muted);">Saldo Disponible:</span>
-            <div class="result-value-big" id="resSaldo">S/. 0.00</div>
-          </div>
-        </div>
+        <div class="kpi-value" id="kpiAlumnos">0</div>
+        <div class="kpi-sub" id="kpiAlumnosSub">Cuentas creadas</div>
       </div>
 
-      <!-- RECARGA DE SALDO -->
-      <div class="card">
-        <div class="card-title">&#128176; Recargar Saldo</div>
-        <div class="form-group">
-          <label>DNI del Alumno</label>
-          <input type="text" id="rechargeDni" class="input-field" placeholder="DNI del alumno" maxlength="8">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Tarjetas NFC</span>
+          <span class="kpi-icon">💳</span>
         </div>
-        <div class="form-group">
-          <label>Monto a Abonar (S/.)</label>
-          <input type="number" id="rechargeMonto" class="input-field" step="0.5" min="0.5" placeholder="Monto ej. 10.00">
-          <div class="amount-shortcuts">
-            <button class="amount-shortcut" onclick="setRecharge(5)">+ S/ 5</button>
-            <button class="amount-shortcut" onclick="setRecharge(10)">+ S/ 10</button>
-            <button class="amount-shortcut" onclick="setRecharge(20)">+ S/ 20</button>
-            <button class="amount-shortcut" onclick="setRecharge(50)">+ S/ 50</button>
-          </div>
-        </div>
-        <button class="btn primary" id="rechargeBtn">Abonar Recarga</button>
+        <div class="kpi-value" id="kpiTarjetas">0</div>
+        <div class="kpi-sub" id="kpiTarjetasSub">0 bloqueadas</div>
       </div>
 
-      <!-- REGISTRAR TARJETA -->
-      <div class="card">
-        <div class="card-title">&#128179; Enrolar Nueva Tarjeta / Llavero</div>
-        <div class="form-group">
-          <label>DNI del Alumno</label>
-          <input type="text" id="registerDni" class="input-field" placeholder="DNI registrado" maxlength="8">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Saldo en Sistema</span>
+          <span class="kpi-icon">💰</span>
         </div>
-        <div class="form-group">
-          <label>UID Físico de Tarjeta</label>
-          <input type="text" id="registerUid" class="input-field" placeholder="Ej: AA7AFC35" maxlength="20" style="text-transform: uppercase;">
-        </div>
-        <button class="btn primary" id="registerBtn">Vincular Tarjeta</button>
+        <div class="kpi-value" id="kpiSaldoTotal" style="color: var(--green);">S/ 0.00</div>
+        <div class="kpi-sub">Total fondos de alumnos</div>
       </div>
 
-      <!-- ACCIONES DE SEGURIDAD -->
-      <div class="card">
-        <div class="card-title">&#128273; Acciones del Sistema</div>
-        <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
-          Si un alumno comete 3 intentos erróneos de PIN, la tarjeta queda bloqueada por seguridad. Puedes desbloquear todas las tarjetas o sincronizar el estado.
-        </p>
-        <button class="btn warning" id="unlockAllBtn" style="margin-top: auto;">Desbloquear Todas las Tarjetas</button>
-        <button class="btn" id="refreshStatusBtn">Actualizar Estado y Métricas</button>
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Ventas Hoy</span>
+          <span class="kpi-icon">🛒</span>
+        </div>
+        <div class="kpi-value" id="kpiVentasHoy" style="color: var(--accent);">S/ 0.00</div>
+        <div class="kpi-sub" id="kpiTxHoy">0 consumos aprobados</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Recargas Hoy</span>
+          <span class="kpi-icon">📥</span>
+        </div>
+        <div class="kpi-value" id="kpiRecargasHoy" style="color: #a78bfa;">S/ 0.00</div>
+        <div class="kpi-sub">Abonos en quiosco</div>
       </div>
     </div>
 
-    <!-- TABLA DE ESTADO Y ACTIVIDAD RECIENTE -->
-    <div class="table-container">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <div class="card-title">&#128337; Movimientos Recientes</div>
-        <span style="font-size: 0.75rem; color: var(--text-muted);" id="lastUpdateLabel">Actualizado recientemente</span>
+    <!-- PESTAÑAS DE NAVEGACION -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" data-tab="alumnos">
+        <span>👥</span> Alumnos
+        <span class="tab-badge" id="tabBadgeAlumnos">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tarjetas">
+        <span>💳</span> Tarjetas & Tags
+        <span class="tab-badge" id="tabBadgeTarjetas">0</span>
+      </button>
+      <button class="tab-btn" data-tab="caja">
+        <span>💵</span> Recargas en Caja
+      </button>
+      <button class="tab-btn" data-tab="movimientos">
+        <span>📋</span> Historial de Movimientos
+        <span class="tab-badge" id="tabBadgeTx">0</span>
+      </button>
+      <button class="tab-btn" data-tab="consulta">
+        <span>🔍</span> Consulta por DNI
+      </button>
+    </div>
+
+    <!-- PANEL 1: ALUMNOS -->
+    <div class="tab-panel active" id="panel-alumnos">
+      <div class="panel-toolbar">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" id="searchAlumnosInput" placeholder="Buscar alumno por nombre o DNI...">
+        </div>
+        <button class="btn primary" id="btnOpenModalRegisterStudent">
+          <span>+</span> Registrar Nuevo Alumno
+        </button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha / Hora</th>
-            <th>Tarjeta UID</th>
-            <th>Monto</th>
-            <th>Estado</th>
-            <th>Saldo Posterior</th>
-          </tr>
-        </thead>
-        <tbody id="transactionsTbody">
-          <tr>
-            <td colspan="5" style="text-align: center; color: var(--text-muted);">Cargando registros...</td>
-          </tr>
-        </tbody>
-      </table>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>DNI</th>
+                <th>Nombre Completo</th>
+                <th>Saldo Actual</th>
+                <th>Tarjetas Vinculadas</th>
+                <th>Fecha Registro</th>
+                <th style="text-align: right;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyAlumnos">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--text-muted);">Cargando alumnos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 2: TARJETAS NFC -->
+    <div class="tab-panel" id="panel-tarjetas">
+      <div class="panel-toolbar">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" id="searchTarjetasInput" placeholder="Buscar por UID o nombre de alumno...">
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn warning" id="btnUnlockAll">
+            <span>🔓</span> Desbloquear Todas
+          </button>
+          <button class="btn primary" id="btnOpenModalLinkCard">
+            <span>+</span> Vincular Tarjeta
+          </button>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>UID Hardware</th>
+                <th>Alumno</th>
+                <th>DNI</th>
+                <th>Saldo Cuenta</th>
+                <th>Intentos Fallidos</th>
+                <th>Estado</th>
+                <th style="text-align: right;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyTarjetas">
+              <tr>
+                <td colspan="7" style="text-align: center; color: var(--text-muted);">Cargando tarjetas...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 3: RECARGAS EN CAJA -->
+    <div class="tab-panel" id="panel-caja">
+      <div class="cashier-grid">
+        <!-- FORMULARIO DE RECARGA -->
+        <div class="card">
+          <div class="card-title">
+            <span>💵</span> Nueva Recarga de Saldo
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">
+            Ingresa el DNI del alumno para consultar su saldo y abonar dinero en efectivo.
+          </p>
+
+          <div class="form-group">
+            <label>DNI del Alumno</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="cajaDni" class="input-field" placeholder="8 dígitos de DNI" maxlength="12">
+              <button class="btn" id="cajaSearchBtn">Buscar</button>
+            </div>
+          </div>
+
+          <!-- DETALLE DEL ALUMNO ENCONTRADO -->
+          <div id="cajaAlumnoInfo" style="display: none; background: var(--surface-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 8px;">
+            <div style="font-weight: 700; font-size: 0.95rem;" id="cajaAlumnoNombre">-</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);" id="cajaAlumnoDni">DNI: -</div>
+            <div style="margin-top: 6px; display: flex; justify-content: space-between; align-items: baseline;">
+              <span style="font-size: 0.775rem; color: var(--text-muted);">Saldo actual:</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; color: var(--green); font-weight: 700;" id="cajaAlumnoSaldo">S/ 0.00</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Monto a Abonar (S/.)</label>
+            <input type="number" id="cajaMonto" class="input-field" step="0.5" min="0.5" placeholder="0.00">
+            <div class="amount-shortcuts">
+              <button class="amount-btn" onclick="setCajaAmount(2)">+ S/ 2</button>
+              <button class="amount-btn" onclick="setCajaAmount(5)">+ S/ 5</button>
+              <button class="amount-btn" onclick="setCajaAmount(10)">+ S/ 10</button>
+              <button class="amount-btn" onclick="setCajaAmount(20)">+ S/ 20</button>
+              <button class="amount-btn" onclick="setCajaAmount(50)">+ S/ 50</button>
+              <button class="amount-btn" onclick="setCajaAmount(100)">+ S/ 100</button>
+              <button class="amount-btn" onclick="setCajaAmount(0)">Limpiar</button>
+            </div>
+          </div>
+
+          <button class="btn success" id="cajaSubmitBtn" style="padding: 12px; font-size: 0.95rem; margin-top: 8px;">
+            <span>✓</span> Confirmar Abono de Saldo
+          </button>
+        </div>
+
+        <!-- HISTORIAL RECIENTE DE RECARGAS -->
+        <div class="card">
+          <div class="card-title">
+            <span>📥</span> Últimas Recargas Realizadas
+          </div>
+          <div style="max-height: 440px; overflow-y: auto;" id="cajaRecentList">
+            <div style="text-align: center; color: var(--text-muted); padding: 24px;">No hay recargas recientes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 4: HISTORIAL DE MOVIMIENTOS -->
+    <div class="tab-panel" id="panel-movimientos">
+      <div class="panel-toolbar">
+        <div class="filter-chips" id="txFilters">
+          <button class="filter-chip active" data-filter="TODOS">Todos</button>
+          <button class="filter-chip" data-filter="OK">Pagos POS (OK)</button>
+          <button class="filter-chip" data-filter="RECARGA">Recargas</button>
+          <button class="filter-chip" data-filter="ERROR">Rechazados / Errores</button>
+        </div>
+
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div class="search-box" style="max-width: 240px;">
+            <span>🔍</span>
+            <input type="text" id="searchTxInput" placeholder="Filtrar movimientos...">
+          </div>
+          <button class="btn" id="btnExportCsv" title="Descargar como CSV">
+            <span>📥</span> Exportar CSV
+          </button>
+          <button class="btn" onclick="window.print()" title="Imprimir o guardar PDF">
+            <span>🖨️</span> Imprimir
+          </button>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha y Hora</th>
+                <th>Alumno</th>
+                <th>Tarjeta UID</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Saldo Posterior</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyTx">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--text-muted);">Cargando transacciones...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 5: CONSULTA POR DNI -->
+    <div class="tab-panel" id="panel-consulta">
+      <div class="card" style="max-width: 580px; margin: 0 auto;">
+        <div class="card-title">
+          <span>🔍</span> Consultar Expediente de Alumno
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">
+          Busca cualquier alumno registrado para ver su saldo detallado y tarjetas asociadas.
+        </p>
+
+        <div class="form-group">
+          <label>DNI del Alumno</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="lookupDniInput" class="input-field" placeholder="Ingrese 8 dígitos de DNI" maxlength="12">
+            <button class="btn primary" id="btnLookupDni">Consultar</button>
+          </div>
+        </div>
+
+        <div id="lookupResultBox" style="display: none; flex-direction: column; gap: 14px; background: var(--surface-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-top: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <h4 style="font-size: 1.1rem; font-weight: 700;" id="lookupName">-</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);" id="lookupDni">DNI: -</p>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Saldo Actual</span>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; color: var(--green); font-weight: 800;" id="lookupSaldo">S/ 0.00</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <button class="btn success sm" id="btnLookupQuickRecharge">💵 Recargar Saldo</button>
+            <button class="btn primary sm" id="btnLookupQuickCard">+ Asignar Tarjeta</button>
+            <button class="btn sm" id="btnLookupQuickEdit">✏️ Editar PIN</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <!-- ==================== MODALES ==================== -->
 
+  <!-- MODAL: REGISTRAR ALUMNO -->
+  <div class="modal-backdrop" id="modalRegisterStudent">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Registrar Nuevo Alumno</h3>
+        <button class="modal-close" onclick="closeModal('modalRegisterStudent')">&times;</button>
+      </div>
+      <form id="formRegisterStudent">
+        <div class="form-group">
+          <label>DNI del Alumno *</label>
+          <input type="text" id="regDni" class="input-field" placeholder="Ej: 72345678" maxlength="12" required>
+          <span class="input-hint">8 dígitos de DNI escolar</span>
+        </div>
+        <div class="form-group">
+          <label>Nombres y Apellidos *</label>
+          <input type="text" id="regNombre" class="input-field" placeholder="Ej: Lucía Fernández Ramos" required>
+        </div>
+        <div class="form-group">
+          <label>PIN de Seguridad (4 dígitos)</label>
+          <input type="password" id="regPin" class="input-field" placeholder="1234 (por defecto)" maxlength="6" value="1234">
+          <span class="input-hint">Clave numérica que el alumno digita en el terminal</span>
+        </div>
+        <div class="form-group">
+          <label>Saldo Inicial (Opcional, S/.)</label>
+          <input type="number" id="regSaldoInicial" class="input-field" step="0.5" min="0" placeholder="0.00" value="0.00">
+        </div>
+        <div class="form-group">
+          <label>UID de Tarjeta / Llavero RFID (Opcional)</label>
+          <input type="text" id="regUid" class="input-field" placeholder="Ej: AA7AFC35" maxlength="20" style="text-transform: uppercase;">
+          <span class="input-hint">Si ya tienes la tarjeta física en mano, puedes vincularla ahora</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="closeModal('modalRegisterStudent')">Cancelar</button>
+          <button type="submit" class="btn primary">Guardar Alumno</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: VINCULAR TARJETA -->
+  <div class="modal-backdrop" id="modalLinkCard">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Vincular Tarjeta o Llavero RFID</h3>
+        <button class="modal-close" onclick="closeModal('modalLinkCard')">&times;</button>
+      </div>
+      <form id="formLinkCard">
+        <div class="form-group">
+          <label>DNI del Alumno *</label>
+          <input type="text" id="linkCardDni" class="input-field" placeholder="DNI del alumno" maxlength="12" required>
+        </div>
+        <div class="form-group">
+          <label>UID Físico de Tarjeta o Llavero *</label>
+          <input type="text" id="linkCardUid" class="input-field" placeholder="Ej: A1B2C3D4" maxlength="20" style="text-transform: uppercase;" required>
+          <span class="input-hint">Identificador hexadecimal leído por el sensor RC522</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="closeModal('modalLinkCard')">Cancelar</button>
+          <button type="submit" class="btn primary">Vincular a Alumno</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDITAR ALUMNO / CAMBIAR PIN -->
+  <div class="modal-backdrop" id="modalEditStudent">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Editar Alumno / Cambiar PIN</h3>
+        <button class="modal-close" onclick="closeModal('modalEditStudent')">&times;</button>
+      </div>
+      <form id="formEditStudent">
+        <input type="hidden" id="editStudentDniHidden">
+        <div class="form-group">
+          <label>DNI (No editable)</label>
+          <input type="text" id="editStudentDni" class="input-field" disabled style="opacity: 0.7;">
+        </div>
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input type="text" id="editStudentNombre" class="input-field" required>
+        </div>
+        <div class="form-group">
+          <label>Nuevo PIN de 4 dígitos</label>
+          <input type="password" id="editStudentPin" class="input-field" placeholder="Dejar en blanco para no cambiar" maxlength="6">
+          <span class="input-hint">Ingresa 4 dígitos si el alumno olvidó su clave</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="closeModal('modalEditStudent')">Cancelar</button>
+          <button type="submit" class="btn primary">Actualizar Datos</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ==================== LOGICA JAVASCRIPT ==================== -->
   <script>
-    const toastEl = document.getElementById('toast');
+    // ESTADO LOCAL DE LA APLICACION
+    let appState = {
+      alumnos: [],
+      tarjetas: [],
+      transacciones: [],
+      stats: {},
+      selectedFilterTx: 'TODOS'
+    };
 
-    function showToast(msg, isError = false) {
-      toastEl.textContent = msg;
-      toastEl.style.borderColor = isError ? 'var(--red)' : 'var(--green)';
-      toastEl.style.display = 'block';
+    // TOAST NOTIFIER
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      const icon = type === 'success' ? '✓' : (type === 'error' ? '✕' : 'ℹ');
+      toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+      
+      container.appendChild(toast);
       setTimeout(() => {
-        toastEl.style.display = 'none';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.25s ease-out';
+        setTimeout(() => toast.remove(), 250);
       }, 3500);
     }
 
-    function setRecharge(val) {
-      const input = document.getElementById('rechargeMonto');
-      input.value = parseFloat(val).toFixed(2);
+    // MODAL HELPERS
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('open');
     }
 
-    // CONSULTAR ALUMNO
-    document.getElementById('searchBtn').addEventListener('click', async () => {
-      const dni = document.getElementById('searchDni').value.trim();
-      const resultBox = document.getElementById('searchResult');
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('open');
+    }
 
-      if (!dni) {
-        showToast('Ingrese un número de DNI', true);
-        return;
-      }
+    // TABS LOGIC
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
 
-      try {
-        const res = await fetch(`/api/admin/alumno/${encodeURIComponent(dni)}`);
-        const data = await res.json();
-
-        if (res.ok && data.status === 'OK') {
-          document.getElementById('resAlumnoName').textContent = data.alumno || 'Alumno Registrado';
-          document.getElementById('resDni').textContent = `DNI: ${data.dni}`;
-          document.getElementById('resSaldo').textContent = `S/. ${Number(data.saldo || 0).toFixed(2)}`;
-          resultBox.style.display = 'flex';
-          showToast('Alumno encontrado con éxito');
-        } else {
-          resultBox.style.display = 'none';
-          showToast(data.message || 'Alumno no encontrado', true);
-        }
-      } catch (e) {
-        showToast('Error de conexión con el servidor', true);
-      }
+        btn.classList.add('active');
+        const targetPanel = document.getElementById(`panel-${btn.dataset.tab}`);
+        if (targetPanel) targetPanel.classList.add('active');
+      });
     });
 
-    // RECARGA DE SALDO
-    document.getElementById('rechargeBtn').addEventListener('click', async () => {
-      const dni = document.getElementById('rechargeDni').value.trim();
-      const monto = parseFloat(document.getElementById('rechargeMonto').value);
+    // RECARGA DE SALDO HELPER
+    function setCajaAmount(val) {
+      const input = document.getElementById('cajaMonto');
+      if (val === 0) {
+        input.value = '';
+      } else {
+        const current = parseFloat(input.value) || 0;
+        input.value = (current + val).toFixed(2);
+      }
+    }
 
-      if (!dni || isNaN(monto) || monto <= 0) {
-        showToast('Ingrese un DNI y un monto válido', true);
+    // CARGAR DATOS COMPLETOS DESDE EL BACKEND
+    async function loadData() {
+      const icon = document.getElementById('refreshIcon');
+      if (icon) icon.style.display = 'inline-block';
+
+      try {
+        const res = await fetch('/api/admin/status');
+        if (!res.ok) throw new Error('Error al conectar con la API');
+        const data = await res.json();
+
+        appState.alumnos = data.alumnos || [];
+        appState.tarjetas = data.tarjetas || [];
+        appState.transacciones = data.transacciones || [];
+        appState.stats = data.stats || {};
+
+        renderKPIs();
+        renderAlumnosTable();
+        renderTarjetasTable();
+        renderTransaccionesTable();
+        renderCajaRecent();
+      } catch (err) {
+        showToast('Error cargando datos del servidor', 'error');
+      }
+    }
+
+    // RENDERIZAR METRICAS KPI
+    function renderKPIs() {
+      const stats = appState.stats || {};
+      const totalAlumnos = stats.totalAlumnos ?? appState.alumnos.length;
+      const totalTarjetas = stats.totalTarjetas ?? appState.tarjetas.length;
+      const tarjetasBloqueadas = stats.totalTarjetasBloqueadas ?? appState.tarjetas.filter(t => t.bloqueado === 1).length;
+      const saldoTotal = stats.saldoTotal ?? appState.alumnos.reduce((acc, a) => acc + (a.saldo || 0), 0);
+      const ventasHoy = stats.ventasHoy ?? 0;
+      const recargasHoy = stats.recargasHoy ?? 0;
+      const txHoy = stats.transaccionesHoy ?? 0;
+
+      document.getElementById('kpiAlumnos').textContent = totalAlumnos;
+      document.getElementById('kpiAlumnosSub').textContent = `${totalAlumnos} ${totalAlumnos === 1 ? 'cuenta activa' : 'cuentas activas'}`;
+
+      document.getElementById('kpiTarjetas').textContent = totalTarjetas;
+      const subTarjetas = document.getElementById('kpiTarjetasSub');
+      if (tarjetasBloqueadas > 0) {
+        subTarjetas.textContent = `⚠️ ${tarjetasBloqueadas} bloqueada(s)`;
+        subTarjetas.style.color = 'var(--red)';
+        subTarjetas.style.fontWeight = '600';
+      } else {
+        subTarjetas.textContent = 'Todas operativas';
+        subTarjetas.style.color = 'var(--text-muted)';
+        subTarjetas.style.fontWeight = 'normal';
+      }
+
+      document.getElementById('kpiSaldoTotal').textContent = `S/ ${Number(saldoTotal).toFixed(2)}`;
+      document.getElementById('kpiVentasHoy').textContent = `S/ ${Number(ventasHoy).toFixed(2)}`;
+      document.getElementById('kpiTxHoy').textContent = `${txHoy} operaciones hoy`;
+      document.getElementById('kpiRecargasHoy').textContent = `S/ ${Number(recargasHoy).toFixed(2)}`;
+
+      // Badges en las pestañas
+      document.getElementById('tabBadgeAlumnos').textContent = totalAlumnos;
+      document.getElementById('tabBadgeTarjetas').textContent = totalTarjetas;
+      document.getElementById('tabBadgeTx').textContent = appState.transacciones.length;
+    }
+
+    // RENDERIZAR TABLA DE ALUMNOS
+    function renderAlumnosTable() {
+      const tbody = document.getElementById('tbodyAlumnos');
+      const search = (document.getElementById('searchAlumnosInput').value || '').trim().toLowerCase();
+
+      const filtered = appState.alumnos.filter(a => {
+        if (!search) return true;
+        return (a.nombre_completo || '').toLowerCase().includes(search) || String(a.dni).includes(search);
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6">
+              <div class="empty-state">
+                <span class="empty-icon">👥</span>
+                <p>No se encontraron alumnos registrados</p>
+                <button class="btn primary sm" onclick="openModal('modalRegisterStudent')">+ Registrar Primer Alumno</button>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(a => {
+        const tarjetasHtml = (a.tarjetas && a.tarjetas.length > 0)
+          ? a.tarjetas.map(t => {
+              const isLocked = t.bloqueado === 1;
+              const chipClass = isLocked ? 'red' : 'blue';
+              const lockIcon = isLocked ? '🔒 ' : '';
+              return `<span class="chip ${chipClass}" title="${isLocked ? 'Tarjeta bloqueada' : 'Tarjeta activa'}">${lockIcon}${t.uid}</span>`;
+            }).join(' ')
+          : `<span class="chip gray">Sin tarjeta</span>`;
+
+        const fechaFormateada = a.fecha_registro ? a.fecha_registro.split(' ')[0] : '-';
+
+        return `
+          <tr>
+            <td style="font-family:'JetBrains Mono', monospace; font-weight:600; color:var(--accent);">${a.dni}</td>
+            <td style="font-weight:600;">${a.nombre_completo}</td>
+            <td style="font-family:'JetBrains Mono', monospace; font-size:1rem; font-weight:700; color:var(--green);">
+              S/ ${Number(a.saldo || 0).toFixed(2)}
+            </td>
+            <td>${tarjetasHtml}</td>
+            <td style="color:var(--text-muted); font-size:0.775rem;">${fechaFormateada}</td>
+            <td style="text-align: right;">
+              <div style="display:inline-flex; gap:6px;">
+                <button class="btn sm success" onclick="openRechargeFor('${a.dni}')" title="Abonar saldo a este alumno">💵 Recargar</button>
+                <button class="btn sm" onclick="openLinkCardFor('${a.dni}')" title="Asignar nueva tarjeta">+ Tarjeta</button>
+                <button class="btn sm" onclick="openEditStudent('${a.dni}', '${escapeQuotes(a.nombre_completo)}')" title="Editar datos o PIN">✏️</button>
+                <button class="btn sm danger" onclick="confirmDeleteStudent('${a.dni}', '${escapeQuotes(a.nombre_completo)}')" title="Eliminar alumno">🗑️</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // RENDERIZAR TABLA DE TARJETAS
+    function renderTarjetasTable() {
+      const tbody = document.getElementById('tbodyTarjetas');
+      const search = (document.getElementById('searchTarjetasInput').value || '').trim().toLowerCase();
+
+      const filtered = appState.tarjetas.filter(t => {
+        if (!search) return true;
+        return (t.uid || '').toLowerCase().includes(search) ||
+               (t.nombre_completo || '').toLowerCase().includes(search) ||
+               (t.dni && String(t.dni).includes(search));
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7">
+              <div class="empty-state">
+                <span class="empty-icon">💳</span>
+                <p>No hay tarjetas vinculadas todavía</p>
+                <button class="btn primary sm" onclick="openModal('modalLinkCard')">+ Vincular Tarjeta</button>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(t => {
+        const isLocked = t.bloqueado === 1;
+        const statusBadge = isLocked
+          ? `<span class="chip red">BLOQUEADA</span>`
+          : `<span class="chip green">ACTIVA</span>`;
+
+        const attemptsBadge = t.intentos_fallidos > 0
+          ? `<span class="chip amber">${t.intentos_fallidos}/3</span>`
+          : `<span class="chip gray">0/3</span>`;
+
+        const actionBtn = isLocked
+          ? `<button class="btn sm success" onclick="unlockSingleCard('${t.uid}')">🔓 Desbloquear</button>`
+          : `<button class="btn sm warning" onclick="lockSingleCard('${t.uid}')">🔒 Bloquear</button>`;
+
+        return `
+          <tr>
+            <td>
+              <span class="chip blue" style="font-size:0.8rem; font-weight:700;">${t.uid}</span>
+            </td>
+            <td style="font-weight:600;">${t.nombre_completo || '-'}</td>
+            <td style="font-family:'JetBrains Mono', monospace; color:var(--text-muted);">${t.dni || '-'}</td>
+            <td style="font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--green);">
+              S/ ${Number(t.saldo || 0).toFixed(2)}
+            </td>
+            <td>${attemptsBadge}</td>
+            <td>${statusBadge}</td>
+            <td style="text-align: right;">
+              <div style="display:inline-flex; gap:6px;">
+                ${actionBtn}
+                <button class="btn sm danger" onclick="confirmDeleteCard('${t.uid}')" title="Desvincular tarjeta">✕</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // RENDERIZAR TABLA DE TRANSACCIONES
+    function renderTransaccionesTable() {
+      const tbody = document.getElementById('tbodyTx');
+      const search = (document.getElementById('searchTxInput').value || '').trim().toLowerCase();
+      const filter = appState.selectedFilterTx;
+
+      const filtered = appState.transacciones.filter(t => {
+        // Filtro por estado
+        if (filter === 'OK' && t.estado !== 'OK') return false;
+        if (filter === 'RECARGA' && t.estado !== 'RECARGA') return false;
+        if (filter === 'ERROR' && (t.estado === 'OK' || t.estado === 'RECARGA')) return false;
+
+        // Búsqueda de texto
+        if (!search) return true;
+        return (t.alumno_nombre || '').toLowerCase().includes(search) ||
+               (t.tarjeta_uid || '').toLowerCase().includes(search) ||
+               (t.estado || '').toLowerCase().includes(search) ||
+               (t.alumno_dni && String(t.alumno_dni).includes(search));
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 32px;">
+              No hay movimientos que coincidan con los filtros aplicados.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(t => {
+        let badgeClass = 'gray';
+        let estadoLabel = t.estado;
+
+        if (t.estado === 'OK' || t.estado === 'APROBADO') {
+          badgeClass = 'green';
+          estadoLabel = 'APROBADO';
+        } else if (t.estado === 'RECARGA') {
+          badgeClass = 'blue';
+          estadoLabel = 'RECARGA';
+        } else if (t.estado === 'BLOQUEADO') {
+          badgeClass = 'red';
+          estadoLabel = 'BLOQUEADA';
+        } else if (t.estado === 'ERROR_PIN') {
+          badgeClass = 'amber';
+          estadoLabel = 'ERROR PIN';
+        } else if (t.estado === 'SIN_SALDO') {
+          badgeClass = 'red';
+          estadoLabel = 'SIN SALDO';
+        }
+
+        const isRecarga = t.estado === 'RECARGA';
+        const sign = isRecarga ? '+' : '-';
+        const montoColor = isRecarga ? 'var(--green)' : '#93c5fd';
+
+        const saldoRestanteText = t.saldo_restante != null
+          ? `S/ ${Number(t.saldo_restante).toFixed(2)}`
+          : '-';
+
+        return `
+          <tr>
+            <td style="color:var(--text-muted); font-size:0.775rem;">${t.fecha_registro || t.created_at || '-'}</td>
+            <td style="font-weight:600;">${t.alumno_nombre || 'Alumno'}</td>
+            <td><span class="chip gray">${t.tarjeta_uid || 'N/A'}</span></td>
+            <td style="font-family:'JetBrains Mono', monospace; font-weight:700; color:${montoColor};">
+              ${sign} S/ ${Number(t.monto || 0).toFixed(2)}
+            </td>
+            <td><span class="chip ${badgeClass}">${estadoLabel}</span></td>
+            <td style="font-family:'JetBrains Mono', monospace; color:var(--text);">${saldoRestanteText}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // RENDERIZAR RECARGAS RECIENTES EN EL PANEL CAJA
+    function renderCajaRecent() {
+      const container = document.getElementById('cajaRecentList');
+      const recargas = appState.transacciones.filter(t => t.estado === 'RECARGA').slice(0, 8);
+
+      if (recargas.length === 0) {
+        container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 24px;">No hay recargas registradas todavía.</div>`;
+        return;
+      }
+
+      container.innerHTML = recargas.map(r => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(38, 51, 73, 0.4);">
+          <div>
+            <div style="font-weight: 600; font-size: 0.85rem;">${r.alumno_nombre || 'Alumno'}</div>
+            <div style="font-size: 0.725rem; color: var(--text-muted);">${r.fecha_registro || '-'}</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-family: 'JetBrains Mono', monospace; color: var(--green); font-weight: 700;">+ S/ ${Number(r.monto).toFixed(2)}</div>
+            <div style="font-size: 0.725rem; color: var(--text-muted);">Saldo: S/ ${Number(r.saldo_restante || 0).toFixed(2)}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ACCIONES DE REGISTRO DE ALUMNO
+    document.getElementById('btnOpenModalRegisterStudent').addEventListener('click', () => {
+      document.getElementById('formRegisterStudent').reset();
+      document.getElementById('regPin').value = '1234';
+      document.getElementById('regSaldoInicial').value = '0.00';
+      openModal('modalRegisterStudent');
+    });
+
+    document.getElementById('formRegisterStudent').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const dni = document.getElementById('regDni').value.trim();
+      const nombre_completo = document.getElementById('regNombre').value.trim();
+      const pin = document.getElementById('regPin').value.trim();
+      const saldo_inicial = parseFloat(document.getElementById('regSaldoInicial').value) || 0;
+      const uid = document.getElementById('regUid').value.trim().toUpperCase();
+
+      if (!dni || !nombre_completo) {
+        showToast('DNI y Nombre son obligatorios', 'error');
         return;
       }
 
       try {
-        const res = await fetch('/api/admin/recargar', {
+        const res = await fetch('/api/admin/registrar-alumno', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ dni, monto })
+          body: JSON.stringify({ dni, nombre_completo, pin, saldo_inicial, uid })
         });
         const data = await res.json();
 
         if (res.ok && data.status === 'OK') {
-          showToast(`¡Recarga exitosa! Nuevo saldo: S/. ${Number(data.cuenta?.saldo || 0).toFixed(2)}`);
-          document.getElementById('rechargeMonto').value = '';
-          loadDashboardData();
+          showToast(`¡Alumno ${data.alumno.nombre_completo} registrado con éxito!`, 'success');
+          closeModal('modalRegisterStudent');
+          loadData();
         } else {
-          showToast(data.message || 'Error al procesar la recarga', true);
+          showToast(data.message || 'Error al registrar alumno', 'error');
         }
-      } catch (e) {
-        showToast('Error de red al recargar', true);
+      } catch (err) {
+        showToast('Error de conexión con el servidor', 'error');
       }
     });
 
-    // REGISTRAR TARJETA
-    document.getElementById('registerBtn').addEventListener('click', async () => {
-      const dni = document.getElementById('registerDni').value.trim();
-      const uid = document.getElementById('registerUid').value.trim().toUpperCase();
+    // ACCIONES DE VINCULAR TARJETA
+    document.getElementById('btnOpenModalLinkCard').addEventListener('click', () => {
+      document.getElementById('formLinkCard').reset();
+      openModal('modalLinkCard');
+    });
+
+    document.getElementById('formLinkCard').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const dni = document.getElementById('linkCardDni').value.trim();
+      const uid = document.getElementById('linkCardUid').value.trim().toUpperCase();
 
       if (!dni || !uid) {
-        showToast('DNI y UID de tarjeta son obligatorios', true);
+        showToast('DNI y UID de tarjeta son obligatorios', 'error');
         return;
       }
 
@@ -506,71 +1623,327 @@
         const data = await res.json();
 
         if (res.ok && data.status === 'OK') {
-          showToast(`Tarjeta ${uid} vinculada correctamente`);
-          document.getElementById('registerUid').value = '';
-          loadDashboardData();
+          showToast(`¡Tarjeta ${uid} vinculada correctamente!`, 'success');
+          closeModal('modalLinkCard');
+          loadData();
         } else {
-          showToast(data.message || 'Error al vincular tarjeta', true);
+          showToast(data.message || 'Error al vincular tarjeta', 'error');
         }
-      } catch (e) {
-        showToast('Error de red al registrar tarjeta', true);
+      } catch (err) {
+        showToast('Error de red al registrar tarjeta', 'error');
       }
     });
 
-    // DESBLOQUEAR TODO
-    document.getElementById('unlockAllBtn').addEventListener('click', async () => {
+    // ACCIONES DE EDITAR ALUMNO
+    window.openEditStudent = function(dni, nombre) {
+      document.getElementById('editStudentDniHidden').value = dni;
+      document.getElementById('editStudentDni').value = dni;
+      document.getElementById('editStudentNombre').value = nombre;
+      document.getElementById('editStudentPin').value = '';
+      openModal('modalEditStudent');
+    };
+
+    document.getElementById('formEditStudent').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const dni = document.getElementById('editStudentDniHidden').value;
+      const nombre_completo = document.getElementById('editStudentNombre').value.trim();
+      const pin = document.getElementById('editStudentPin').value.trim();
+
+      try {
+        const res = await fetch(`/api/admin/alumno/${encodeURIComponent(dni)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre_completo, pin: pin || undefined })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.status === 'OK') {
+          showToast('Datos del alumno actualizados correctamente', 'success');
+          closeModal('modalEditStudent');
+          loadData();
+        } else {
+          showToast(data.message || 'Error al actualizar alumno', 'error');
+        }
+      } catch (err) {
+        showToast('Error de conexión', 'error');
+      }
+    });
+
+    // ELIMINAR ALUMNO
+    window.confirmDeleteStudent = async function(dni, nombre) {
+      if (!confirm(`¿Estás seguro de eliminar al alumno ${nombre} (DNI ${dni}) y todas sus tarjetas vinculadas?`)) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/admin/alumno/${encodeURIComponent(dni)}`, {
+          method: 'DELETE'
+        });
+        const data = await res.json();
+
+        if (res.ok && data.status === 'OK') {
+          showToast(`Alumno eliminado exitosamente`, 'success');
+          loadData();
+        } else {
+          showToast(data.message || 'Error al eliminar', 'error');
+        }
+      } catch (err) {
+        showToast('Error de conexión', 'error');
+      }
+    };
+
+    // ACCIONES INDIVIDUALES DE TARJETA
+    window.unlockSingleCard = async function(uid) {
+      try {
+        const res = await fetch('/api/admin/desbloquear-tarjeta', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ uid })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast(`Tarjeta ${uid} desbloqueada`, 'success');
+          loadData();
+        } else {
+          showToast(data.message || 'Error al desbloquear', 'error');
+        }
+      } catch (err) {
+        showToast('Error de red', 'error');
+      }
+    };
+
+    window.lockSingleCard = async function(uid) {
+      if (!confirm(`¿Deseas bloquear la tarjeta ${uid}? No podrá usarse en el quiosco hasta ser desbloqueada.`)) return;
+
+      try {
+        const res = await fetch('/api/admin/bloquear-tarjeta', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ uid })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast(`Tarjeta ${uid} bloqueada`, 'warning');
+          loadData();
+        } else {
+          showToast(data.message || 'Error al bloquear', 'error');
+        }
+      } catch (err) {
+        showToast('Error de red', 'error');
+      }
+    };
+
+    window.confirmDeleteCard = async function(uid) {
+      if (!confirm(`¿Desvincular y eliminar la tarjeta ${uid}?`)) return;
+
+      try {
+        const res = await fetch(`/api/admin/tarjeta/${encodeURIComponent(uid)}`, {
+          method: 'DELETE'
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast(`Tarjeta ${uid} desvinculada`, 'success');
+          loadData();
+        } else {
+          showToast(data.message || 'Error al desvincular', 'error');
+        }
+      } catch (err) {
+        showToast('Error de red', 'error');
+      }
+    };
+
+    // DESBLOQUEO MASIVO
+    document.getElementById('btnUnlockAll').addEventListener('click', async () => {
       try {
         const res = await fetch('/api/admin/desbloquear-todo');
         const data = await res.json();
         if (res.ok) {
-          showToast('Todas las tarjetas fueron desbloqueadas');
-          loadDashboardData();
+          showToast('Todas las tarjetas fueron desbloqueadas con éxito', 'success');
+          loadData();
         }
-      } catch (e) {
-        showToast('Error al desbloquear tarjetas', true);
+      } catch (err) {
+        showToast('Error de red', 'error');
       }
     });
 
-    // ACTUALIZAR DASHBOARD
-    async function loadDashboardData() {
+    // CAJA: BUSCAR Y RECARGAR
+    async function searchCajaStudent(dni) {
+      if (!dni) return;
       try {
-        const res = await fetch('/api/admin/status');
-        if (!res.ok) return;
+        const res = await fetch(`/api/admin/alumno/${encodeURIComponent(dni)}`);
         const data = await res.json();
 
-        const tbody = document.getElementById('transactionsTbody');
-        const trans = data.transacciones || [];
-
-        if (trans.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-muted);">No hay transacciones registradas todavía.</td></tr>`;
-          return;
+        const box = document.getElementById('cajaAlumnoInfo');
+        if (res.ok && data.status === 'OK') {
+          document.getElementById('cajaAlumnoNombre').textContent = data.alumno;
+          document.getElementById('cajaAlumnoDni').textContent = `DNI: ${data.dni}`;
+          document.getElementById('cajaAlumnoSaldo').textContent = `S/ ${Number(data.saldo || 0).toFixed(2)}`;
+          box.style.display = 'block';
+        } else {
+          box.style.display = 'none';
+          showToast('Alumno no encontrado con ese DNI', 'error');
         }
-
-        tbody.innerHTML = trans.map(t => {
-          const isOk = t.estado === 'APROBADO';
-          const badgeClass = isOk ? 'green' : 'red';
-          const saldoFormatted = t.saldo_restante != null ? `S/. ${Number(t.saldo_restante).toFixed(2)}` : '-';
-          return `
-            <tr>
-              <td style="color: var(--text-muted); font-size: 0.775rem;">${t.fecha_registro || '-'}</td>
-              <td><span class="badge" style="background:#1e293b; color:#93c5fd;">${t.tarjeta_uid || 'N/A'}</span></td>
-              <td style="font-weight:600; font-family:'JetBrains Mono', monospace;">S/. ${Number(t.monto || 0).toFixed(2)}</td>
-              <td><span class="badge ${badgeClass}">${t.estado}</span></td>
-              <td style="font-family:'JetBrains Mono', monospace;">${saldoFormatted}</td>
-            </tr>
-          `;
-        }).join('');
-
-        document.getElementById('lastUpdateLabel').textContent = `Actualizado: ${new Date().toLocaleTimeString()}`;
-      } catch (e) {}
+      } catch (err) {
+        showToast('Error al consultar alumno', 'error');
+      }
     }
 
-    document.getElementById('refreshStatusBtn').addEventListener('click', () => {
-      loadDashboardData();
-      showToast('Datos actualizados');
+    document.getElementById('cajaSearchBtn').addEventListener('click', () => {
+      const dni = document.getElementById('cajaDni').value.trim();
+      searchCajaStudent(dni);
     });
 
-    loadDashboardData();
+    document.getElementById('cajaDni').addEventListener('change', () => {
+      const dni = document.getElementById('cajaDni').value.trim();
+      if (dni.length >= 8) searchCajaStudent(dni);
+    });
+
+    document.getElementById('cajaSubmitBtn').addEventListener('click', async () => {
+      const dni = document.getElementById('cajaDni').value.trim();
+      const monto = parseFloat(document.getElementById('cajaMonto').value);
+
+      if (!dni || isNaN(monto) || monto <= 0) {
+        showToast('Ingrese un DNI y un monto válido a abonar', 'error');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/admin/recargar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dni, monto })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.status === 'OK') {
+          showToast(`¡Recarga exitosa de S/ ${monto.toFixed(2)} para ${data.alumno}! Nuevo saldo: S/ ${Number(data.nuevoSaldo).toFixed(2)}`, 'success');
+          document.getElementById('cajaMonto').value = '';
+          searchCajaStudent(dni);
+          loadData();
+        } else {
+          showToast(data.message || 'Error al procesar la recarga', 'error');
+        }
+      } catch (err) {
+        showToast('Error de red al recargar saldo', 'error');
+      }
+    });
+
+    // ACCIONES RAPIDAS DESDE TABLA ALUMNOS
+    window.openRechargeFor = function(dni) {
+      document.querySelector('[data-tab="caja"]').click();
+      document.getElementById('cajaDni').value = dni;
+      searchCajaStudent(dni);
+      document.getElementById('cajaMonto').focus();
+    };
+
+    window.openLinkCardFor = function(dni) {
+      document.getElementById('formLinkCard').reset();
+      document.getElementById('linkCardDni').value = dni;
+      openModal('modalLinkCard');
+      document.getElementById('linkCardUid').focus();
+    };
+
+    // CONSULTA EXPEDIENTE POR DNI
+    document.getElementById('btnLookupDni').addEventListener('click', async () => {
+      const dni = document.getElementById('lookupDniInput').value.trim();
+      if (!dni) {
+        showToast('Ingrese un DNI a consultar', 'error');
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/admin/alumno/${encodeURIComponent(dni)}`);
+        const data = await res.json();
+        const box = document.getElementById('lookupResultBox');
+
+        if (res.ok && data.status === 'OK') {
+          document.getElementById('lookupName').textContent = data.alumno;
+          document.getElementById('lookupDni').textContent = `DNI: ${data.dni}`;
+          document.getElementById('lookupSaldo').textContent = `S/ ${Number(data.saldo || 0).toFixed(2)}`;
+          box.style.display = 'flex';
+          showToast('Alumno encontrado', 'success');
+
+          document.getElementById('btnLookupQuickRecharge').onclick = () => openRechargeFor(data.dni);
+          document.getElementById('btnLookupQuickCard').onclick = () => openLinkCardFor(data.dni);
+          document.getElementById('btnLookupQuickEdit').onclick = () => openEditStudent(data.dni, data.alumno);
+        } else {
+          box.style.display = 'none';
+          showToast(data.message || 'Alumno no encontrado', 'error');
+        }
+      } catch (err) {
+        showToast('Error de conexión con el servidor', 'error');
+      }
+    });
+
+    // FILTROS DE MOVIMIENTOS
+    document.querySelectorAll('#txFilters .filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#txFilters .filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        appState.selectedFilterTx = chip.dataset.filter;
+        renderTransaccionesTable();
+      });
+    });
+
+    document.getElementById('searchTxInput').addEventListener('input', renderTransaccionesTable);
+    document.getElementById('searchAlumnosInput').addEventListener('input', renderAlumnosTable);
+    document.getElementById('searchTarjetasInput').addEventListener('input', renderTarjetasTable);
+
+    // EXPORTAR A CSV
+    document.getElementById('btnExportCsv').addEventListener('click', () => {
+      const txs = appState.transacciones;
+      if (!txs || txs.length === 0) {
+        showToast('No hay transacciones para exportar', 'info');
+        return;
+      }
+
+      const headers = ['ID', 'Fecha', 'Alumno', 'DNI', 'Tarjeta UID', 'Monto', 'Estado', 'Saldo Resultante'];
+      const rows = txs.map(t => [
+        t.id,
+        `"${t.fecha_registro || t.created_at || ''}"`,
+        `"${t.alumno_nombre || ''}"`,
+        `"${t.alumno_dni || ''}"`,
+        `"${t.tarjeta_uid || ''}"`,
+        Number(t.monto || 0).toFixed(2),
+        `"${t.estado || ''}"`,
+        t.saldo_restante != null ? Number(t.saldo_restante).toFixed(2) : ''
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `reporte_crediquiosco_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      showToast('Reporte CSV descargado con éxito', 'success');
+    });
+
+    // CARGAR DEMO
+    document.getElementById('btnSeedDemo').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/api/admin/seed-demo', { method: 'POST' });
+        const data = await res.json();
+        showToast(data.message || 'Datos demo procesados', 'info');
+        loadData();
+      } catch (err) {
+        showToast('Error al cargar datos demo', 'error');
+      }
+    });
+
+    // ACTUALIZAR MANUALMENTE
+    document.getElementById('btnRefresh').addEventListener('click', () => {
+      loadData();
+      showToast('Datos actualizados', 'info');
+    });
+
+    function escapeQuotes(str) {
+      return (str || '').replace(/'/g, "\\'");
+    }
+
+    // CARGA INICIAL
+    loadData();
   </script>
 </body>
 </html>
